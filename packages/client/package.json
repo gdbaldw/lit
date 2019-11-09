@@ -1,0 +1,13 @@
+{
+  "name": "client",
+  "description": "sandbox",
+  "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "scripts": {
+    "build": "tsc && cp index.html ../../out/client"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "lit-sudoku",
+  "description": "sandbox",
+  "license": "MIT",
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "lerna exec yarn build",
+    "watch": "watch 'yarn build' packages",
+    "dev": "netlify dev --dir=out/client --functions=out/lambdas",
+    "iterate": "yarn watch & yarn dev",
+    "deploy": "netlify deploy --prod --dir=out/client --functions=out/lambdas"
+  },
+  "dependencies": {
+    "watch": "^1.0.2"
+  }
+}
