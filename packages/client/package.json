@@ -9,5 +9,12 @@
   },
   "scripts": {
     "build": "tsc && cp index.html ../../out/client"
+  },
+  "dependencies": {
+    "lit-element": "^2.2.1"
+  },
+  "devDependencies": {
+    "@pika/web": "^0.6.1",
+    "postinstall": "^0.7.0"
   }
 }

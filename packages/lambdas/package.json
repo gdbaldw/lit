@@ -12,5 +12,8 @@
   },
   "dependencies": {
     "sudoku": "^0.0.2"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.35"
   }
 }

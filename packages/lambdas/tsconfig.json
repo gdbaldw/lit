@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "../../out/lambdas",
-    "allowJs": true
+    "allowJs": true,
+    "strict": true
   }
 }
