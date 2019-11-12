@@ -10,9 +10,7 @@
   "scripts": {
     "clean_build": "rm -rf ../../out/lambdas && tsc"
   },
-  "dependencies": {
-    "sudoku": "https://github.com/gdbaldw/sudoku.git"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/aws-lambda": "^8.10.35"
   }

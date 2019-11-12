@@ -6,7 +6,7 @@ import {
   property
 } from "../web_modules/lit-element.js";
 
-import { getpuzzle, getsolution } from "./sudoku-fetch.js";
+import { makepuzzle, solvepuzzle } from "../web_modules/sudoku.js";
 
 // Input element constant attributes, used for styling
 const row = [...Array(9).keys()];
@@ -54,9 +54,9 @@ export default class extends LitElement {
     return this.shadowRoot!.querySelectorAll("input");
   }
 
-  async makepuzzle() {
-    this.puzzle = await getpuzzle();
-    this.solution = await getsolution(this.puzzle);
+  newpuzzle() {
+    this.puzzle = makepuzzle();
+    this.solution = solvepuzzle(this.puzzle)!;
     this.work = [...this.puzzle];
     if (this.inputs.length == 81) {
       this.work.forEach((cv, i) => {
@@ -67,7 +67,7 @@ export default class extends LitElement {
   }
 
   firstUpdated() {
-    this.makepuzzle();
+    this.newpuzzle();
   }
 
   async checksolution() {
@@ -75,7 +75,7 @@ export default class extends LitElement {
     if (this.incorrect.every(v => !v)) this.puzzle = this.work;
   }
 
-  solvepuzzle() {
+  solve() {
     this.work = [...this.solution];
     this.work.forEach((cv, i) => {
       this.inputs[i].value = "" + (1 + cv!);
@@ -125,9 +125,9 @@ export default class extends LitElement {
             `
         )}
       </section>
-      <button @click=${this.makepuzzle}>New Puzzle</button>
+      <button @click=${this.newpuzzle}>New Puzzle</button>
       <button @click=${this.checksolution}>Check Solution</button>
-      <button @click=${this.solvepuzzle}>Solve</button>
+      <button @click=${this.solve}>Solve</button>
     `;
   }
 
