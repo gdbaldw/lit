@@ -8,10 +8,11 @@
     "url": ""
   },
   "scripts": {
-    "build": "tsc && cp index.html ../../out/client"
+    "build": "npx @pika/web && tsc && cp index.html ../../out/client"
   },
   "dependencies": {
-    "lit-element": "^2.2.1"
+    "lit-element": "^2.2.1",
+    "sudoku": "https://github.com/gdbaldw/sudoku.git"
   },
   "devDependencies": {
     "@pika/web": "^0.6.1",

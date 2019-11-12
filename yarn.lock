@@ -1472,12 +1472,9 @@ strip-final-newline@^2.0.0:
   resolved "https://registry.yarnpkg.com/strip-final-newline/-/strip-final-newline-2.0.0.tgz#89b852fb2fcbe936f6f4b3187afb0a12c1ab58ad"
   integrity sha512-BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA==
 
-sudoku@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/sudoku/-/sudoku-0.0.2.tgz#b1c82927ffabc0243ec76c212824c3f1f3e69034"
-  integrity sha1-scgpJ/+rwCQ+x2whKCTD8fPmkDQ=
-  dependencies:
-    underscore "= 1.1.6"
+"sudoku@https://github.com/gdbaldw/sudoku.git":
+  version "0.0.3"
+  resolved "https://github.com/gdbaldw/sudoku.git#b1e5ffb3b546c8c8dcadb525cc422ff5a141e915"
 
 supports-color@^5.3.0:
   version "5.5.0"
@@ -1506,11 +1503,6 @@ to-fast-properties@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
   integrity sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4=
-
-"underscore@= 1.1.6":
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.1.6.tgz#6868da1bdd72d75285be0b4e50f228e70d001a2c"
-  integrity sha1-aGjaG91y11KFvgtOUPIo5w0AGiw=
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

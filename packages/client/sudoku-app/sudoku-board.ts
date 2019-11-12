@@ -30,9 +30,11 @@ export default class extends LitElement {
     this.puzzle = await getpuzzle();
     this.solution = await getsolution(this.puzzle);
     this.work = [...this.puzzle];
-    this.work.forEach((cv, i) => {
-      this.inputs[i].value = cv === null ? "" : "" + (1 + cv);
-    });
+    if (this.inputs.length == 81) {
+      this.work.forEach((cv, i) => {
+        this.inputs[i].value = cv === null ? "" : "" + (1 + cv);
+      });
+    }
     this.incorrect = Array(81).fill(false);
   }
 
