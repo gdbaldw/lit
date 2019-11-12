@@ -8,6 +8,34 @@ import {
 
 import { getpuzzle, getsolution } from "./sudoku-fetch.js";
 
+// Input element constant attributes, used for styling
+const row = [...Array(9).keys()];
+const bottom = [...Array(91).keys()].map(i =>
+  row
+    .map(v => v + 2 * 9)
+    .concat(row.map(v => v + 5 * 9))
+    .includes(i)
+);
+const top = [...Array(91).keys()].map(i =>
+  row
+    .map(v => v + 3 * 9)
+    .concat(row.map(v => v + 6 * 9))
+    .includes(i)
+);
+const col = row.map(v => 9 * v);
+const right = [...Array(91).keys()].map(i =>
+  col
+    .map(v => v + 2)
+    .concat(col.map(v => v + 5))
+    .includes(i)
+);
+const left = [...Array(91).keys()].map(i =>
+  col
+    .map(v => v + 3)
+    .concat(col.map(v => v + 6))
+    .includes(i)
+);
+
 @customElement("sudoku-board")
 export default class extends LitElement {
   @property({ type: Array })
@@ -89,6 +117,10 @@ export default class extends LitElement {
                 ?readonly=${this.puzzle[i] !== null}
                 ?incorrect=${this.incorrect[i]}
                 @input=${this.input(i)}
+                ?bottom=${bottom[i]}
+                ?top=${top[i]}
+                ?left=${left[i]}
+                ?right=${right[i]}
               />
             `
         )}
@@ -113,17 +145,39 @@ export default class extends LitElement {
         display: grid;
         grid-template-columns: repeat(9, 3rem);
         grid-template-rows: repeat(9, 3rem);
-        border: solid;
+        border: 5px solid black;
+        border-radius: 5px;
         margin-bottom: 1rem;
       }
 
       input {
         font-size: 2rem;
         text-align: center;
+        border: 1px solid lightskyblue;
+      }
+
+      input[bottom] {
+        border-bottom-color: black;
+      }
+
+      input[top] {
+        border-top-color: black;
+      }
+
+      input[left] {
+        border-left-color: black;
+      }
+
+      input[right] {
+        border-right-color: black;
       }
 
       input[incorrect] {
-        background-color: red;
+        background-color: pink;
+      }
+
+      input[readonly] {
+        background-color: lightgray;
       }
     `;
   }
