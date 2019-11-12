@@ -8,7 +8,8 @@
     "url": ""
   },
   "scripts": {
-    "build": "npx @pika/web && tsc && cp index.html ../../out/client"
+    "postinstall": "npx @pika/web",
+    "clean_build": "rm -rf ../../out/client && tsc && cp index.html ../../out/client"
   },
   "dependencies": {
     "lit-element": "^2.2.1",

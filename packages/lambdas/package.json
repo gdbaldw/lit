@@ -8,7 +8,7 @@
     "url": ""
   },
   "scripts": {
-    "build": "tsc"
+    "clean_build": "rm -rf ../../out/lambdas && tsc"
   },
   "dependencies": {
     "sudoku": "https://github.com/gdbaldw/sudoku.git"

@@ -11,8 +11,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna exec yarn build",
-    "watch": "watch 'yarn build' packages",
+    "clean_build": "lerna exec yarn clean_build",
+    "watch": "tsc -b packages/* -w",
     "dev": "netlify dev --dir=out/client --functions=out/lambdas",
     "iterate": "yarn watch & yarn dev",
     "deploy": "netlify deploy --prod --dir=out/client --functions=out/lambdas"
