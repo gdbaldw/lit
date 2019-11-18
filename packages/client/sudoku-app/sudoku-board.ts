@@ -41,93 +41,77 @@ export default class extends LitElement {
   @property({ type: Array })
   puzzle: (number | null)[] = [];
 
-  @property({ type: Array })
-  work: (number | null)[] = [];
-
-  @property({ type: Array })
-  incorrect: boolean[] = [];
+  @property({ type: Number })
+  incorrect = -1;
 
   @property({ type: Array })
   solution: (number | null)[] = [];
 
-  get inputs() {
-    return this.shadowRoot!.querySelectorAll("input");
-  }
+  @property({ type: Number })
+  digit: number = 0;
 
   newpuzzle() {
     this.puzzle = makepuzzle();
     this.solution = solvepuzzle(this.puzzle)!;
-    this.work = [...this.puzzle];
-    if (this.inputs.length == 81) {
-      this.work.forEach((cv, i) => {
-        this.inputs[i].value = cv === null ? "" : "" + (1 + cv);
-      });
+    for (let v of this.puzzle) {
+      if (v !== null) {
+        this.digit = v;
+        break;
+      }
     }
-    this.incorrect = Array(81).fill(false);
+    this.incorrect = -1;
   }
 
   firstUpdated() {
     this.newpuzzle();
   }
 
-  async checksolution() {
-    this.incorrect = this.solution.map((cv, i) => cv !== this.work[i]);
-    if (this.incorrect.every(v => !v)) this.puzzle = this.work;
-  }
-
-  solve() {
-    this.work = [...this.solution];
-    this.work.forEach((cv, i) => {
-      this.inputs[i].value = "" + (1 + cv!);
-    });
-    this.incorrect = Array(81).fill(false);
-  }
-
   input(i: number) {
     return (event: InputEvent) => {
-      let data = event.data!;
-      if ("1" <= data && data <= "9") {
-        this.inputs[i].value = data;
-        this.work[i] = parseInt(data) - 1;
-      } else {
-        const value = this.inputs[i].value;
-        if (value.length === 2) {
-          this.inputs[i].value = value[0];
-        } else {
-          this.inputs[i].value = "";
-          this.work[i] = null;
+      this.incorrect = -1;
+      if (this.digit === this.solution[i]) {
+        this.puzzle[i] = this.digit;
+        this.puzzle = [...this.puzzle];
+        for (let i = 0; i < 9; i++) {
+          if (this.puzzle.reduce((acc, cv) => cv === this.digit ? acc! + 1 : acc, 0)! < 9) { return; }
+          this.digit = (this.digit + 1) % 9;
         }
+        this.digit = -1;
+      } else {
+        this.incorrect = i;
       }
-      if (this.incorrect[i]) {
-        this.incorrect[i] = false;
-        this.incorrect = [...this.incorrect];
-      }
-    };
+    }
   }
 
   render() {
     return html`
       <h1>Sudoku</h1>
       <section>
-        ${this.work.map(
-          (cv: any, i: number) =>
-            html`
-              <input
+        ${this.puzzle.map(
+      (cv: any, i: number) =>
+        html`
+              <div
                 value=${cv === null ? "" : cv + 1}
+                ?highlight=${cv === this.digit}
                 ?readonly=${this.puzzle[i] !== null}
-                ?incorrect=${this.incorrect[i]}
-                @input=${this.input(i)}
+                ?incorrect=${this.incorrect === i}
                 ?bottom=${bottom[i]}
                 ?top=${top[i]}
                 ?left=${left[i]}
                 ?right=${right[i]}
-              />
+                @click=${this.input(i)}
+              >${cv === null ? "" : cv + 1}</div>
             `
-        )}
+    )}
       </section>
+      <aside>
+      ${[...Array(9).keys()].map((v) => html`<button
+         @click=${() => { this.digit = v; this.incorrect = -1 }}
+        ?disabled=${this.puzzle.reduce((pv, cv) => (pv! + (cv === v ? 1 : 0)), 0) === 9} 
+        ?highlight=${v === this.digit}
+         >${v + 1}</button>`)}
+      </aside>
       <button @click=${this.newpuzzle}>New Puzzle</button>
-      <button @click=${this.checksolution}>Check Solution</button>
-      <button @click=${this.solve}>Solve</button>
     `;
   }
 
@@ -150,34 +134,59 @@ export default class extends LitElement {
         margin-bottom: 1rem;
       }
 
-      input {
+      aside{
+        width: 27rem;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(9, 2rem);
+        justify-content: space-evenly;
+        font-size: 2rem;
+      }
+
+      button {
+        border-radius: 10px;
+        background-color: lightgray;
+      }
+      
+      button[highlight] {
+        background-color: gray;
+        color: white;
+      }
+
+      div {
+        line-height: 3rem;
         font-size: 2rem;
         text-align: center;
         border: 1px solid lightskyblue;
       }
 
-      input[bottom] {
+      div[bottom] {
         border-bottom-color: black;
       }
 
-      input[top] {
+      div[top] {
         border-top-color: black;
       }
 
-      input[left] {
+      div[left] {
         border-left-color: black;
       }
 
-      input[right] {
+      div[right] {
         border-right-color: black;
       }
 
-      input[incorrect] {
+      div[incorrect] {
         background-color: pink;
       }
 
-      input[readonly] {
+      div[readonly] {
         background-color: lightgray;
+      }
+
+      div[highlight]{
+        background: gray;
+        color: white;
       }
     `;
   }
