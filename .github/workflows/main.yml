@@ -10,7 +10,7 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: List directories
-      run: ls -al node_modules packages/client
+      run: ls -al packages/client
 
     - name: Cache node modules
       id: node_modules
