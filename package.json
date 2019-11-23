@@ -17,5 +17,7 @@
     "iterate": "yarn watch & yarn dev",
     "deploy": "netlify deploy --prod --dir=out/client --functions=out/lambdas"
   },
-  "dependencies": {}
+  "dependencies": {
+    "lerna": "^3.19.0"
+  }
 }
