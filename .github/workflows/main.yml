@@ -10,18 +10,24 @@ jobs:
     - uses: actions/checkout@v1
 
     - uses: actions/cache@v1
-      id: cache
+      id: node_modules
       with:
         path: node_modules 
-        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-node_modules
+  
+    - uses: actions/cache@v1
+      with:
+        path: packages/client/web_modules 
+        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-client_web_modules
+  
+    - uses: actions/cache@v1
+      with:
+        path: packages/client/node_modules 
+        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-client_node_modules
   
     - name: Install Dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
+      if: steps.node_modules.outputs.cache-hit != 'true'
       run: yarn install
-
-    - name: Postinstall Dependencies
-      if: steps.cache.outputs.cache-hit == 'true'
-      run: yarn postinstall
 
     - name: Build
       run: yarn clean_build
