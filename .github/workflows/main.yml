@@ -13,7 +13,6 @@ jobs:
       run: ls -al packages/client
 
     - name: Cache node modules
-      id: node_modules
       uses: actions/cache@v1
       with:
         path: node_modules 
@@ -26,17 +25,21 @@ jobs:
         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-client_web_modules
   
     - name: Cache client node modules
+      id: node_modules
       uses: actions/cache@v1
       with:
         path: packages/client/node_modules 
         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-client_node_modules
   
     - name: List directories after cache checks
-      run: ls -al node_modules packages/client
+      run: ls -al packages/client
 
     - name: Install Dependencies
       if: steps.node_modules.outputs.cache-hit != 'true'
       run: yarn install
+
+    - name: List directories after install dependencies
+      run: ls -al packages/client
 
     - name: Build
       run: yarn clean_build
