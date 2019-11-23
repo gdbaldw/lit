@@ -10,7 +10,7 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: List directories
-      run: ls -al
+      run: ls -al / packages packages/client
 
     - name: Cache node modules
       id: node_modules
@@ -31,6 +31,9 @@ jobs:
         path: packages/client/node_modules 
         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-client_node_modules
   
+    - name: List directories after cache checks
+      run: ls -al / packages packages/client
+
     - name: Install Dependencies
       if: steps.node_modules.outputs.cache-hit != 'true'
       run: yarn install
