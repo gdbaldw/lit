@@ -18,6 +18,7 @@
     "deploy": "netlify deploy --prod --dir=out/client --functions=out/lambdas"
   },
   "dependencies": {
-    "lerna": "^3.19.0"
+    "lerna": "^3.19.0",
+    "netlify-cli": "^2.21.0"
   }
 }
