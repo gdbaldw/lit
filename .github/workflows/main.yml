@@ -8,20 +8,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - uses: actions/cache@v1
 
     - name: Cache node modules
       id: node_modules
+      uses: actions/cache@v1
       with:
         path: node_modules 
         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-node_modules
   
     - name: Cache client web modules
+      uses: actions/cache@v1
       with:
         path: packages/client/web_modules 
         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-client_web_modules
   
     - name: Cache client node modules
+      uses: actions/cache@v1
       with:
         path: packages/client/node_modules 
         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-client_node_modules
