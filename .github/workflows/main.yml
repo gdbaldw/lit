@@ -9,6 +9,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: List directories
+      run: ls -al
+
     - name: Cache node modules
       id: node_modules
       uses: actions/cache@v1
