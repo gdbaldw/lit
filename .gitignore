@@ -2,4 +2,5 @@
 .netlify
 node_modules/
 web_modules/
+*.log
 out
