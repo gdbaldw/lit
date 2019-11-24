@@ -86,7 +86,7 @@ export default class extends LitElement {
   render() {
     return html`
       <h1>Sudoku</h1>
-      <section>
+      <section ?completed=${this.digit === -1}>
         ${this.puzzle.map(
       (cv: any, i: number) =>
         html`
@@ -105,7 +105,7 @@ export default class extends LitElement {
     )}
       </section>
       <aside>
-      ${[...Array(9).keys()].map((v) => html`<button
+      ${[...Array(9).keys()].map((v) => html`<button digit 
          @click=${() => { this.digit = v; this.incorrect = -1 }}
         ?disabled=${this.puzzle.reduce((pv, cv) => (pv! + (cv === v ? 1 : 0)), 0) === 9} 
         ?highlight=${v === this.digit}
@@ -134,18 +134,31 @@ export default class extends LitElement {
         margin-bottom: 1rem;
       }
 
+      section[completed] {
+        border: 20px solid lightgreen;
+        border-radius: 20px;
+      }
+
       aside{
         width: 27rem;
         margin: auto;
         display: grid;
-        grid-template-columns: repeat(9, 2rem);
+        grid-template-columns: repeat(9, 3rem);
         justify-content: space-evenly;
-        font-size: 2rem;
       }
 
       button {
-        border-radius: 10px;
+        font-size: 1rem;
+        border-radius: 10%;
+      }
+      
+      button[digit] {
+        font-size: 2rem;
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
         background-color: lightgray;
+        margin-bottom: 1rem;
       }
       
       button[highlight] {
