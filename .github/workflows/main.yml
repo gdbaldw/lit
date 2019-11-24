@@ -9,9 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: List directories
-      run: ls -al packages/client
-
     - name: Cache node modules
       uses: actions/cache@v1
       with:
@@ -25,24 +22,24 @@ jobs:
         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-client_web_modules
   
     - name: Cache client node modules
-      id: node_modules
+      id: client_node_modules
       uses: actions/cache@v1
       with:
         path: packages/client/node_modules 
         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-client_node_modules
   
-    - name: List directories after cache checks
-      run: ls -al packages/client
-
+    - name: Cache out directory
+      uses: actions/cache@v1
+      with:
+        path: out
+        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-out
+  
     - name: Install Dependencies
-      if: steps.node_modules.outputs.cache-hit != 'true'
+      if: steps.client_node_modules.outputs.cache-hit != 'true'
       run: yarn install
 
-    - name: List directories after install dependencies
-      run: ls -al packages/client
-
     - name: Build
-      run: yarn clean_build
+      run: yarn build
 
     - name: Deploy
       env:

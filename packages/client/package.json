@@ -9,7 +9,9 @@
   },
   "scripts": {
     "postinstall": "npx @pika/web",
-    "clean_build": "rm -rf ../../out/client && tsc && cp index.html ../../out/client"
+    "clean": "rm -rf ../../out/client",
+    "build": "tsc && cp index.html ../../out/client",
+    "clean_build": "yarn clean && yarn build"
   },
   "dependencies": {
     "lit-element": "^2.2.1",

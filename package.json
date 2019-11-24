@@ -10,6 +10,8 @@
     "packages/*"
   ],
   "scripts": {
+    "clean": "lerna exec yarn clean",
+    "build": "lerna exec yarn build",
     "clean_build": "lerna exec yarn clean_build",
     "watch": "tsc -b packages/* -w",
     "dev": "netlify dev --dir=out/client --functions=out/lambdas",

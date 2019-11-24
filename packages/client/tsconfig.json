@@ -10,6 +10,7 @@
     "outDir": "../../out/client",
     "allowJs": true,
     "experimentalDecorators": true,
-    "strict": true
+    "strict": true,
+    "incremental": true
   }
 }

@@ -8,7 +8,9 @@
     "url": ""
   },
   "scripts": {
-    "clean_build": "rm -rf ../../out/lambdas && [ -f index.ts ] && tsc || exit 0"
+    "clean": "rm -rf ../../out/lambdas",
+    "build": "[ -f index.ts ] && tsc || exit 0",
+    "clean_build": "yarn clean && yarn build"
   },
   "dependencies": {},
   "devDependencies": {
