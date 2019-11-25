@@ -6,53 +6,56 @@ import {
   property
 } from "../web_modules/lit-element.js";
 
-import { makepuzzle, solvepuzzle } from "../web_modules/sudoku.js";
-
 // Input element constant attributes, used for styling
 const row = [...Array(9).keys()];
-const bottom = [...Array(91).keys()].map(i =>
+const bottom = [...Array(81).keys()].map(i =>
   row
     .map(v => v + 2 * 9)
     .concat(row.map(v => v + 5 * 9))
     .includes(i)
 );
-const top = [...Array(91).keys()].map(i =>
+const top = [...Array(81).keys()].map(i =>
   row
     .map(v => v + 3 * 9)
     .concat(row.map(v => v + 6 * 9))
     .includes(i)
 );
 const col = row.map(v => 9 * v);
-const right = [...Array(91).keys()].map(i =>
+const right = [...Array(81).keys()].map(i =>
   col
     .map(v => v + 2)
     .concat(col.map(v => v + 5))
     .includes(i)
 );
-const left = [...Array(91).keys()].map(i =>
+const left = [...Array(81).keys()].map(i =>
   col
     .map(v => v + 3)
     .concat(col.map(v => v + 6))
     .includes(i)
 );
 
+type Board = (number | null)[]
+
 @customElement("sudoku-board")
 export default class extends LitElement {
   @property({ type: Array })
-  puzzle: (number | null)[] = [];
+  puzzle: Board = Array(81).fill(null);
 
   @property({ type: Number })
   incorrect = -1;
 
   @property({ type: Array })
-  solution: (number | null)[] = [];
+  solution: Board = Array(81).fill(null);
 
   @property({ type: Number })
   digit: number = 0;
 
+  makepuzzle: (() => Board) | undefined;
+  solvepuzzle: ((board: any) => any) | undefined;
+
   newpuzzle() {
-    this.puzzle = makepuzzle();
-    this.solution = solvepuzzle(this.puzzle)!;
+    this.puzzle = this.makepuzzle!();
+    this.solution = this.solvepuzzle!(this.puzzle)!;
     for (let v of this.puzzle) {
       if (v !== null) {
         this.digit = v;
@@ -63,7 +66,11 @@ export default class extends LitElement {
   }
 
   firstUpdated() {
-    this.newpuzzle();
+    import('../web_modules/sudoku.js').then(module => {
+      this.makepuzzle = module.makepuzzle;
+      this.solvepuzzle = module.solvepuzzle;
+      this.newpuzzle();
+    });
   }
 
   input(i: number) {
