@@ -60,7 +60,7 @@ export default class extends LitElement {
       }
       this.digit = -1;
     } else if (this.solution[i] !== null) {
-      this.digit = this.solution[i]
+      this.digit = this.solution[i]!
     } else {
       this.incorrect = i;
     }
