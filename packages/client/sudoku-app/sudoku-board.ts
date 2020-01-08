@@ -49,6 +49,7 @@ export default class extends LitElement {
 
   input(i: number) {
     console.log(i);
+    console.log(this.solution[i]);
     this.incorrect = -1;
     if (this.digit === this.solution[i]) {
       this.puzzle[i] = this.digit;
@@ -58,6 +59,8 @@ export default class extends LitElement {
         this.digit = (this.digit + 1) % 9;
       }
       this.digit = -1;
+    } else if (this.solution[i]) {
+      this.digit = this.solution[i]
     } else {
       this.incorrect = i;
     }
