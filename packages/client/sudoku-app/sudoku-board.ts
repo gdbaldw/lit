@@ -48,8 +48,6 @@ export default class extends LitElement {
   }
 
   input(i: number) {
-    console.log(i);
-    console.log(this.solution[i]);
     this.incorrect = -1;
     if (this.digit === this.solution[i]) {
       this.puzzle[i] = this.digit;
@@ -59,8 +57,8 @@ export default class extends LitElement {
         this.digit = (this.digit + 1) % 9;
       }
       this.digit = -1;
-    } else if (this.solution[i] !== null) {
-      this.digit = this.solution[i]!
+    } else if (this.puzzle[i] !== null) {
+      this.digit = this.puzzle[i]!
     } else {
       this.incorrect = i;
     }
@@ -154,6 +152,7 @@ render() {
         font-size: 2rem;
         text-align: center;
         border: 1px solid lightskyblue;
+        cursor: default;
       }
 
       div[bottom] {
