@@ -48,23 +48,22 @@ export default class extends LitElement {
   }
 
   input(i: number) {
-    return (event: InputEvent) => {
-      this.incorrect = -1;
-      if (this.digit === this.solution[i]) {
-        this.puzzle[i] = this.digit;
-        this.puzzle = [...this.puzzle];
-        for (let i = 0; i < 9; i++) {
-          if (this.puzzle.reduce((acc, cv) => cv === this.digit ? acc! + 1 : acc, 0)! < 9) { return; }
-          this.digit = (this.digit + 1) % 9;
-        }
-        this.digit = -1;
-      } else {
-        this.incorrect = i;
+    console.log(i);
+    this.incorrect = -1;
+    if (this.digit === this.solution[i]) {
+      this.puzzle[i] = this.digit;
+      this.puzzle = [...this.puzzle];
+      for (let i = 0; i < 9; i++) {
+        if (this.puzzle.reduce((acc, cv) => cv === this.digit ? acc! + 1 : acc, 0)! < 9) { return; }
+        this.digit = (this.digit + 1) % 9;
       }
+      this.digit = -1;
+    } else {
+      this.incorrect = i;
     }
   }
-
-  render() {
+  
+render() {
     return html`
       <h1>Sudoku</h1>
       <section ?completed=${this.digit === -1}>
@@ -80,7 +79,7 @@ export default class extends LitElement {
                 ?top=${top[i]}
                 ?left=${left[i]}
                 ?right=${right[i]}
-                @click=${this.input(i)}
+                @click=${this.input.bind(this,i)}
               >${cv === null ? "" : cv + 1}</div>
             `
     )}
