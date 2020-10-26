@@ -1,4 +1,4 @@
-# Incremental compile and continuous deployment from terminal AND from github push
+# Incremental compile and continuous deployment from terminal AND from github push [![Netlify Status](https://api.netlify.com/api/v1/badges/d742160f-ac44-474f-b6cf-c56dcf98701e/deploy-status)](https://app.netlify.com/sites/gdbaldw/deploys)
 
 This toy application implementing the Sudoku Game demonstrates Continuous Deployment to Netlify, with all Continuous Integration performed exclusively in a disconnected workstation or in Github or both in combination. This buildless environment implements Yarn Workspaces, Lerna, Pika, TSC, and Github Workflow, with intermediate files cached for incremental builds. Lambda function support is included.
 
