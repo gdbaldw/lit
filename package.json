@@ -16,10 +16,13 @@
     "watch": "tsc -b packages/* -w",
     "dev": "yarn netlify dev --dir=out/client --functions=out/lambdas",
     "iterate": "yarn watch & yarn dev",
-    "deploy": "yarn netlify deploy --prod --dir=out/client --functions=out/lambdas"
+    "deploy": "yarn netlify deploy --prod --dir=out/client --functions=out/lambdas",
+    "postinstall": "lerna exec yarn postinstall"
   },
-  "dependencies": {
-    "lerna": "^3.19.0",
-    "netlify-cli": "^2.21.0"
+  "dependencies": {},
+  "devDependencies": {
+    "lerna": "^3.22.1",
+    "netlify-cli": "^2.65.7",
+    "postinstall": "^0.7.0"
   }
 }
