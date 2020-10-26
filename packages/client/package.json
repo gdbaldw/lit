@@ -8,7 +8,7 @@
     "url": ""
   },
   "scripts": {
-    "postinstall": "npx @pika/web",
+    "postinstall": "npx snowpack",
     "clean": "rm -rf ../../out/client",
     "build": "tsc && cp index.html ../../out/client",
     "clean_build": "yarn clean && yarn build"
@@ -18,6 +18,6 @@
     "sudoku": "https://github.com/gdbaldw/sudoku.git"
   },
   "devDependencies": {
-    "@pika/web": "^0.6.1"
+    "snowpack": "^2.15.1"
   }
 }
