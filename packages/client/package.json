@@ -13,6 +13,15 @@
     "build": "tsc && cp index.html ../../out/client",
     "clean_build": "yarn clean && yarn build"
   },
+  "snowpack": {
+    "install": [
+      "lit-element",
+      "sudoku"
+    ],
+    "installOptions": {
+      "namedExports": ["sudoku"]
+    }
+  },
   "dependencies": {
     "lit-element": "^2.2.1",
     "sudoku": "https://github.com/gdbaldw/sudoku.git"
